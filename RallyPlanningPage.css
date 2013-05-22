@@ -1,0 +1,54 @@
+tr.UserStory:hover
+{
+	background-color:PowderBlue;
+}
+#backlog
+{
+	border-collapse:collapse;
+}
+#backlog td 
+{
+	border-bottom:1px solid #E8E8E8;
+	border-top:1px solid grey; 
+	padding:1px 10px 1px 0px;
+}
+._ref, .Rank 
+{
+	display:none;
+}
+.EditLinks 
+{
+	white-space: nowrap;
+	text-align:right;
+}
+.EditLinks a 
+{
+	display:-moz-inline-box;
+	display:inline-block;
+	height:16px;
+	line-height:16px;
+	width:16px;
+	vertical-align:middle;
+}
+#status 
+{
+	margin-left:auto;
+	margin-right:auto;
+	width:100px;
+    height:80px;
+    position:relative;
+}
+#backlog
+{
+	clear:both;
+	overflow:auto;
+	height:500px;
+}
+#velocity
+{
+	float:left;
+}
+#CreateNewIteration
+{
+	float:right;
+}

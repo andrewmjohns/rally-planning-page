@@ -1,0 +1,11 @@
+{
+    "name": "Rally Planning Page",
+    "className": "CustomApp",
+    "sdk": "1.32",
+    "javascript": [
+        "Utility.js","RallyPlanningPage.js","Backlog.js","Story.js","Velocity.js","jQueryUI.js"
+    ],
+    "css": [
+        "RallyPlanningPage.css"
+    ]
+}
