@@ -7,8 +7,11 @@
 );*/
 //Constants
 var DaysInIteration = 14;
-var API = "1.43";
+var API = '1.43';
 var today = toISOString(new Date());
+var ERRORCOLOR = '#F78181';
+var SUCCESSCOLOR = 'PaleGreen';
+var WARNINGCOLOR = '#F3F781';
 		
 var rallyDataSource;
 var teamVelocity;

@@ -71,9 +71,9 @@ function Backlog(rallyDataSource, element)
         }
         	    		
     	//make all the this.stories of the table draggable and droppable so that they can be reordered
-    	$("#backlog tbody").sortable({helper:'clone',update:updateRank}).disableSelection();
     		
     	this.displayElement.appendChild(table);
+    	$("#backlog tbody").sortable({helper:'clone',update:updateRank}).disableSelection();
 	}
 }
 //when a row has been dropped this function is called to update the rank in the database and refresh the table
@@ -83,7 +83,7 @@ function updateRank(event, ui){
 		
 	//get Rank from the second column of the row that was dropped onto 
 	var droppedRank = parseInt($($("#" + ui.item[0].id).prev()).find(".Rank").text()); 
-		
+	
 	//handle the case where the item is dropped in the first place (so the previous row is the header row)
 	if(isNaN(droppedRank)){
 		//get the next item in the list instead of the previous item and make the rank lower

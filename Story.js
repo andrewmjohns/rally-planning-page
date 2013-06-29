@@ -11,6 +11,7 @@ function Story(data, iterations, releases)
 		
 		var tr = document.createElement('tr');
 		tr.className = 'UserStory';
+		tr.id = this.model.FormattedID; //Must give the row an ID to support drag and drop changing the rank
 
 		var tdClasses = ['_ref', 'Rank', 'ID', 'Name', 'Points', 'Parent', 'Release', 'Iteration', 'EditLinks'];
 		var tds = [];
@@ -119,11 +120,11 @@ function deleteStory(story,type)
 
 	if(API === undefined)
 	{
-		rallyWebServiceUrl += '1.43';
+       	updateStatus('Webservice API undefined! ', ERRORCOLOR)
 	}
 	else
 	{
-		rallyWebServiceUrl += API;
+		rallyWebServiceUrl += API + "/";
 	}
 	
 	xmlhttp = new XMLHttpRequest();
@@ -131,48 +132,13 @@ function deleteStory(story,type)
     {
         if (xmlhttp.readyState === 4 && xmlhttp.status === 200)
         {
-			updateStatus(xmlhttp.responseText, 'PaleGreen');
+			onComplete('','');
         }
         else if (xmlhttp.readyState === 4)
 		{
-        	updateStatus('Something went wrong! ' + xmlhttp.responseText, '#F78181')
-        	console.log(xmlhttp);
+			onError(xmlhttp);
         }
     }
     xmlhttp.open('DELETE', rallyWebServiceUrl + type + '/' + story,true);
     xmlhttp.send();
-}
-
-function onError(response)
-{
-   	updateStatus('Update did not complete. Please check javascript log.', '#F78181');
-	console.log(response);
-}
-
-function onComplete(object, warnings)
-{
-	if(warnings.length !== 0)
-	{
-		updateStatus('Update completed with warnings. ' + warnings[0], '#F3F781');
-		console.log(warnings);
-	} 
-	else 
-	{
-		updateStatus('Update successful.', 'PaleGreen');
-	}
-}
-
-//Changes the text and color of the status element on the screen to the specified text and color
-function updateStatus(statusString, statusColor)
-{
-	document.getElementById('status').innerHTML = statusString;
-    document.getElementById('status').style.background = statusColor;
-    
-	function resetStatus()
-	{
-    	document.getElementById('status').innerHTML = '';
-        document.getElementById('status').style.background='';
-    }
-
-	setTimeout(resetStatus, 2000);
 }
