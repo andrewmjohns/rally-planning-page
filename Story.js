@@ -11,7 +11,7 @@ function Story(data, iterations, releases)
 		
 		var tr = document.createElement('tr');
 		tr.className = 'UserStory';
-		tr.id = this.model.FormattedID; //Must give the row an ID to support drag and drop changing the rank
+		tr.id = this.model.ObjectID; //Must give the row an ID to support drag and drop changing the rank
 
 		var tdClasses = ['_ref', 'Rank', 'ID', 'Name', 'Points', 'Parent', 'Release', 'Iteration', 'EditLinks'];
 		var tds = [];

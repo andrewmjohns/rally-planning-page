@@ -6,6 +6,8 @@ function wsDelete(objectID, type)
         if (xmlhttp.readyState === 4 && xmlhttp.status === 200)
         {
 			onComplete('','');
+
+			document.getElementById(objectID).parentNode.removeChild(document.getElementById(objectID));
    	    }
        	else if (xmlhttp.readyState === 4)
 		{
