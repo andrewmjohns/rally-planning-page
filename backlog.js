@@ -73,34 +73,43 @@ function Backlog(rallyDataSource, element)
     	//make all the this.stories of the table draggable and droppable so that they can be reordered
     		
     	this.displayElement.appendChild(table);
-    	$("#backlog tbody").sortable({helper:'clone',update:updateRank}).disableSelection();
+    	$("#backlog tbody").sortable({helper:'clone',update:this.updateRank}).disableSelection();
 	}
-}
-//when a row has been dropped this function is called to update the rank in the database and refresh the table
-function updateRank(event, ui){
-	//get _ref from the first column of the row that was dragged so we can update it
-	var draggedRef = ui.item[0].childNodes[0].innerHTML;
-	var newRank = 0;
+
+	//when a row has been dropped this function is called to update the rank in the database and refresh the table
+	this.updateRank = function(event, ui){
+		//get _ref from the first column of the row that was dragged so we can update it
+		var draggedRef = ui.item[0].childNodes[0].innerHTML;
+		var newRank = 0;
 		
-	//get Rank from the second column of the row that was dropped onto 
-	var previousRank = parseInt($($("#" + ui.item[0].id).prev()).find(".Rank").text());
-	var nextRank = parseInt($($("#" + ui.item[0].id).next()).find(".Rank").text());
+		//get Rank from the second column of the row that was dropped onto 
+		var previousRank = parseInt($($("#" + ui.item[0].id).prev()).find(".Rank").text());
+		var nextRank = parseInt($($("#" + ui.item[0].id).next()).find(".Rank").text());
 	
-	//handle the case where the item is dropped in the first place (so the previous row is the header row)
-	if(isNaN(previousRank))
-	{
-		newRank = nextRank - 10;
-	} 
-	//handle the case where the item is dropped in the last place (so the next row is not existant)
-	else if(isNaN(nextRank))
-	{
-		newRank = previousRank + 10;
-	}
-	else
-	{
-		newRank = (nextRank + previousRank) / 2;
-	}
+		//handle the case where the item is dropped in the first place (so the previous row is the header row)
+		if(isNaN(previousRank))
+		{
+			newRank = nextRank - 10;
+		} 
+		//handle the case where the item is dropped in the last place (so the next row is not existant)
+		else if(isNaN(nextRank))
+		{
+			newRank = previousRank + 10;
+		}
+		else
+		{
+			newRank = (nextRank + previousRank) / 2;
+		}
 	
-	//make the dragged item a lower priority than the dropped item and redraw table
-	rallyDataSource.update({"_ref":draggedRef, Rank: newRank}, onComplete, onError);
+		//make the dragged item a lower priority than the dropped item and redraw table
+		rallyDataSource.update({"_ref":draggedRef, Rank: newRank}, onComplete, onError);
+	
+		for(i = 0; i < that.stories.length; ++i)
+		{
+			if(that.stories[i].model._ref === draggedRef)
+			{
+				that.stories[i].updateRank(newRank);
+			}
+		}
+	}
 }

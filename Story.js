@@ -103,4 +103,10 @@ function Story(data, iterations, releases)
 	    
     	return tr;
 	}
+	
+	this.updateRank = function(newRank)
+	{
+		this.model.Rank = newRank;
+		document.getElementById(this.model.FormattedID).childNodes[1].innerHTML = newRank;
+	}
 }
