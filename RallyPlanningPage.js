@@ -1,10 +1,3 @@
-/*Ext.define('CustomApp', 
-	{
-    	extend: 'Rally.app.App',
-    	componentCls: 'app',
-    	launch:	onLoad    	
-	}
-);*/
 //Constants
 var DaysInIteration = 14;
 var API = '1.43';
@@ -12,6 +5,7 @@ var today = toISOString(new Date());
 var ERRORCOLOR = '#F78181';
 var SUCCESSCOLOR = 'PaleGreen';
 var WARNINGCOLOR = '#F3F781';
+var RALLY_WEB_SERVICE_URL = 'https://rally1.rallydev.com/slm/webservice/' + API + '/';
 		
 var rallyDataSource;
 var teamVelocity;

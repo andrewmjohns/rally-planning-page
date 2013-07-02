@@ -99,46 +99,8 @@ function Story(data, iterations, releases)
                    
         //Add a delete button
     	tds[8].innerHTML += "<a title='Delete story' style='background:url(https://rally1.rallydev.com/slm/images/sprites.gif) 0 -442px;'"
-	                    + "href='#' onclick='javascript:deleteStory(\"" + this.model.ObjectID + "\", \"" + this.model._type + "\");'></a>";
+	                    + "href='#' onclick='javascript:wsDelete(\"" + this.model.ObjectID + "\", \"" + this.model._type + "\");'></a>";
 	    
     	return tr;
 	}
-}
-	
-function updateStory(StoryRef,key,value)
-{ 
-	var change = {};
-
-	change['_ref'] = StoryRef;
-	change[key] = value;
-	rallyDataSource.update(change, onComplete, onError);
-}
-    
-function deleteStory(story,type)
-{
-	var rallyWebServiceUrl = 'https://rally1.rallydev.com/slm/webservice/'
-
-	if(API === undefined)
-	{
-       	updateStatus('Webservice API undefined! ', ERRORCOLOR)
-	}
-	else
-	{
-		rallyWebServiceUrl += API + "/";
-	}
-	
-	xmlhttp = new XMLHttpRequest();
-    xmlhttp.onreadystatechange = function()
-    {
-        if (xmlhttp.readyState === 4 && xmlhttp.status === 200)
-        {
-			onComplete('','');
-        }
-        else if (xmlhttp.readyState === 4)
-		{
-			onError(xmlhttp);
-        }
-    }
-    xmlhttp.open('DELETE', rallyWebServiceUrl + type + '/' + story,true);
-    xmlhttp.send();
 }
