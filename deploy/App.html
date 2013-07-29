@@ -3,7 +3,7 @@
 <head>
     <title>Rally Planning Page</title>
 
-    <script type="text/javascript" src="/apps/1.32/sdk.js"></script>
+    <script type="text/javascript" src="https://rally1.rallydev.com/apps/1.32/sdk.js"></script>
 
     <script type="text/javascript">
                 function Backlog(rallyDataSource,element){var that=this;this.stories=[],this.displayElement=element,rallyDataSource.findAll([{key:"stories",type:"HierarchicalRequirement",fetch:"Name,FormattedID,ObjectID,PlanEstimate,Rank,Iteration,Release,Parent",query:'((ScheduleState != "Accepted") AND (DirectChildrenCount = 0))'},{key:"defects",type:"defects",fetch:"Name,FormattedID,ObjectID,PlanEstimate,Rank,Iteration,Release",query:'(ScheduleState != "Accepted")'},{key:"Iterations",type:"Iteration",fetch:"Name",query:'(State != "Accepted")'},{key:"Releases",type:"Release",fetch:"Name",query:'(State != "Accepted")'}],function(results){for(results.stories=results.stories.concat(results.defects),results.stories.sort(sortFunc),i=0;results.stories.length>i;i++)that.stories[i]=new Story(results.stories[i],results.Iterations,results.Releases);that.display()}),this.display=function(){var table=document.createElement("table");table.id="backlog";var thead=table.createTHead(),row=thead.insertRow(0),classes=["_ref","Rank","ID","Name","Points","Parent","Release","Iteration","EditButtons"],text=["","","ID","Name","Points","Parent","Release","Iteration",""];for(i=0;classes.length>i;++i){var cell=row.insertCell(i);cell.className=classes[i],cell.innerHTML=text[i]}var tbody=document.createElement("tbody");table.appendChild(tbody);for(var i=0;this.stories.length>i;i++)tbody.appendChild(this.stories[i].display());this.displayElement.appendChild(table),$("#backlog tbody").sortable({helper:"clone",update:this.updateRank}).disableSelection()},this.updateRank=function(event,ui){var draggedRef=ui.item[0].childNodes[0].innerHTML,newRank=0,previousRank=parseInt($($("#"+ui.item[0].id).prev()).find(".Rank").text(),10),nextRank=parseInt($($("#"+ui.item[0].id).next()).find(".Rank").text(),10);for(newRank=isNaN(previousRank)?nextRank-10:isNaN(nextRank)?previousRank+10:(nextRank+previousRank)/2,rallyDataSource.update({_ref:draggedRef,Rank:newRank},onComplete,onError),i=0;that.stories.length>i;++i)that.stories[i].model._ref===draggedRef&&that.stories[i].updateRank(newRank)}}
@@ -70,7 +70,6 @@ a.effects.save(c,d),c.show(),a.effects.createWrapper(c).css({overflow:"hidden"})
 {
 	clear:both;
 	overflow:auto;
-	height:500px;
 }
 #velocity
 {
