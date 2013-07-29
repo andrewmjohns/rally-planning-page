@@ -46,11 +46,11 @@ function Backlog(rallyDataSource, element)
 	
 	this.display = function () 
 	{        
-	   	//begin the table
-       	var table = document.createElement("table");
-       	table.id = 'backlog';
-       	var thead = table.createTHead();
-       	var row = thead.insertRow(0);
+		//begin the table
+		var table = document.createElement("table");
+		table.id = 'backlog';
+		var thead = table.createTHead();
+		var row = thead.insertRow(0);
 
 		var classes = ['_ref','Rank','ID','Name','Points','Parent','Release','Iteration','EditButtons'];
 		var text = ['','','ID','Name','Points','Parent','Release','Iteration',''];
@@ -65,16 +65,16 @@ function Backlog(rallyDataSource, element)
 		var tbody = document.createElement("tbody");
 		table.appendChild(tbody);
 			
-       	for(var i = 0; i < this.stories.length; i++)
-       	{
    			tbody.appendChild(this.stories[i].display());
+		for(var i = 0; i < this.stories.length; i++)
+		{
         }
-        	    		
-    	//make all the this.stories of the table draggable and droppable so that they can be reordered
-    		
-    	this.displayElement.appendChild(table);
-    	$("#backlog tbody").sortable({helper:'clone',update:this.updateRank}).disableSelection();
-	}
+
+		//make all the this.stories of the table draggable and droppable so that they can be reordered
+
+		this.displayElement.appendChild(table);
+		$("#backlog tbody").sortable({helper:'clone',update:this.updateRank}).disableSelection();
+	};
 
 	//when a row has been dropped this function is called to update the rank in the database and refresh the table
 	this.updateRank = function(event, ui){
@@ -83,8 +83,8 @@ function Backlog(rallyDataSource, element)
 		var newRank = 0;
 		
 		//get Rank from the second column of the row that was dropped onto 
-		var previousRank = parseInt($($("#" + ui.item[0].id).prev()).find(".Rank").text());
-		var nextRank = parseInt($($("#" + ui.item[0].id).next()).find(".Rank").text());
+		var previousRank = parseInt($($("#" + ui.item[0].id).prev()).find(".Rank").text(), 10);
+		var nextRank = parseInt($($("#" + ui.item[0].id).next()).find(".Rank").text(), 10);
 	
 		//handle the case where the item is dropped in the first place (so the previous row is the header row)
 		if(isNaN(previousRank))
@@ -111,5 +111,5 @@ function Backlog(rallyDataSource, element)
 				that.stories[i].updateRank(newRank);
 			}
 		}
-	}
+	};
 }

@@ -21,25 +21,25 @@ function onLoad()
            	                                             '__PROJECT_SCOPING_DOWN__');
 	rallyDataSource.setApiVersion(API);
 	
-	var velocity = document.createElement('div');
-	velocity.id = 'velocity';
+		var velocity = document.createElement('div');
+		velocity.id = 'velocity';
 	
-	var status = document.createElement('div');
-	status.id = 'status';
+		var status = document.createElement('div');
+		status.id = 'status';
 	
-	var create = document.createElement('div');
-	create.id = 'CreateNewIteration';
-	create.innerHTML = '<input type="text" id="NewIterationName"></input><button type="button" onclick="CreateNewIteration(this);">Create New Iteration</button><br/><button type="button" onclick="rally.sdk.util.Navigation.popupCreatePage(\'HierarchicalRequirement\', {})">New Story</button>';
+		var create = document.createElement('div');
+		create.id = 'CreateNewIteration';
+		create.innerHTML = '<input type="text" id="NewIterationName"></input><button type="button" onclick="CreateNewIteration(this);">Create New Iteration</button><br/><button type="button" onclick="rally.sdk.util.Navigation.popupCreatePage(\'HierarchicalRequirement\', {})">New Story</button>';
 
-	var backlog = document.createElement('div');
-	backlog.id = 'backlog';
+		var backlog = document.createElement('div');
+		backlog.id = 'backlog';
 	
-	var _body = document.getElementsByTagName('body') [0];
+		var _body = document.getElementsByTagName('body') [0];
 	
-	_body.appendChild(velocity);
-	_body.appendChild(status);
-	_body.appendChild(create);
-	_body.appendChild(backlog);
+		_body.appendChild(velocity);
+		_body.appendChild(status);
+		_body.appendChild(create);
+		_body.appendChild(backlog);
 						
 	teamVelocity = new Velocity(rallyDataSource, velocity);
 	backlog = new Backlog(rallyDataSource, backlog);
@@ -50,32 +50,33 @@ function CreateNewIteration(button)
 	var IterationName = document.getElementById('NewIterationName').value;
 	var queryObject = 
 	{
-       	key: 'Iterations',
-      	type: 'Iteration',
-   	 	fetch: 'EndDate',
-   		order: 'EndDate desc',
-       	pagesize: 1
+		key: 'Iterations',
+		type: 'Iteration',
+		fetch: 'EndDate',
+		order: 'EndDate desc',
+		pagesize: 1
 	};
-	if(IterationName != '')
+	if(IterationName !== '')
 	{
-		function getStartDate(results)
-		{
-			var StartDate = new Date(results.Iterations[0].EndDate);
-			var EndDate = new Date(StartDate);
-			var newIteration = {};
-
-   	        StartDate.setHours(0);
-			StartDate.setDate(StartDate.getDate() + 1);
-			EndDate.setDate(EndDate.getDate() + DaysInIteration);
-
-			newIteration["Name"] = IterationName;
-			newIteration["StartDate"] = StartDate.toISOString();
-			newIteration["EndDate"] = EndDate.toISOString();
-			newIteration["State"] = "Planning";
-				
-			rallyDataSource.create("Iteration", newIteration, onComplete,onError);			
-		}
-   	    rallyDataSource.find(queryObject, getStartDate);
+		rallyDataSource.find(queryObject, getStartDate);
 		document.getElementById('NewIterationName').value = '';
 	}
+}
+
+function getStartDate(results)
+{
+	var StartDate = new Date(results.Iterations[0].EndDate);
+	var EndDate = new Date(StartDate);
+	var newIteration = {};
+
+	StartDate.setHours(0);
+	StartDate.setDate(StartDate.getDate() + 1);
+	EndDate.setDate(EndDate.getDate() + DaysInIteration);
+
+	newIteration.Name = IterationName;
+	newIteration.StartDate = StartDate.toISOString();
+	newIteration.EndDate = EndDate.toISOString();
+	newIteration.State = "Planning";
+				
+	rallyDataSource.create("Iteration", newIteration, onComplete,onError);			
 }

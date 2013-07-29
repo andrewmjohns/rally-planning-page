@@ -18,7 +18,7 @@ function toISOString(d) {
 
 function onError(response)
 {
-   	updateStatus('Update did not complete. Please check javascript log.', ERRORCOLOR);
+	updateStatus('Update did not complete. Please check javascript log.', ERRORCOLOR);
 	console.log(response);
 }
 
@@ -43,7 +43,7 @@ function updateStatus(statusString, statusColor)
     
 	function resetStatus()
 	{
-    	document.getElementById('status').innerHTML = '';
+		document.getElementById('status').innerHTML = '';
         document.getElementById('status').style.background='';
     }
 
