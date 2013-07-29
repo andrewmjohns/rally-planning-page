@@ -41,7 +41,7 @@ function Story(data, iterations, releases)
 						"' onchange='javascript:updateStory(this.name,\"PlanEstimate\",this.value);'>" + 
 						"</input>";
 
-		tds[5].innerHTML = (this.model.Parent !== null ? this.model.Parent.Name : "");
+		tds[5].innerHTML = (this.model.Parent ? this.model.Parent.Name : "");
 		//Make release a select box
 		var releaseHTML = "<select name='" + this.model._ref +
 							"' onchange='javascript:updateStory(this.name,\"Release\",this.options[this.selectedIndex].value)'>" +
@@ -99,12 +99,13 @@ function Story(data, iterations, releases)
 		tds[8].innerHTML += "<a title='Delete story' style='background:url(https://rally1.rallydev.com/slm/images/sprites.gif) 0 -442px;'" +
 							"href='#' onclick='javascript:wsDelete(\"" + this.model.ObjectID + "\", \"" + this.model._type + "\");'></a>";
 
-		this.displayElement = tr;
+		return tr;
 	};
 	
 	this.updateRank = function(newRank)
 	{
 		this.model.Rank = newRank;
-		document.getElementById(this.model.FormattedID).childNodes[1].innerHTML = newRank;
+		document.getElementById(this.model.ObjectID).childNodes[1].innerHTML = newRank;
+
 	};
 }

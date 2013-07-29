@@ -5,7 +5,10 @@ function Velocity (rallyDataSource, element)
 	this.current = 0;
 	this.currentAccepted = 0;
 	this.currentIterationName = '';
+	this.currentIterationRef = '';
 	this.lastIterationName = '';
+	this.lastIterationRef = '';
+	this.numIterations = 0;
 	
 	this.displayElement = element;
 	
@@ -28,22 +31,21 @@ function Velocity (rallyDataSource, element)
 	{
 		//get all stories and defects that occured in the current sprint and previous 3 sprints
 		var queryObject = [];
-		var currentIteration = '';
-		var lastIteration = '';
 		var queryString = '';
-		var average = results.iterations.length - 1;
+		
+		that.numIterations = results.iterations.length - 1;
 		
 		if(results.iterations.length > 0)
 		{
 			that.currentIterationName = results.iterations[0].Name;
-			currentIteration = results.iterations[0]._ref;
+			that.currentIterationRef = results.iterations[0]._ref;
 			queryString = '(Iteration.ObjectID = "' + results.iterations[0].ObjectID + '")';
 		}
 		
 		if(results.iterations.length > 1)
 		{
 			that.lastIterationName = results.iterations[1].Name;
-			lastIteration = results.iterations[1]._ref;
+			that.lastIterationRef = results.iterations[1]._ref;
 			for(i=1; i < results.iterations.length; ++i)
 			{
 				queryString = '(' + queryString;
@@ -76,12 +78,12 @@ function Velocity (rallyDataSource, element)
 	
 		for(i=0; i < points.length; ++i)
 		{
-			if (points[i].Iteration._ref == lastIteration)
+			if (points[i].Iteration._ref == that.lastIterationRef)
 			{
 				that.last += points[i].PlanEstimate;	
 			}
 
-			if (points[i].Iteration._ref == currentIteration)
+			if (points[i].Iteration._ref == that.currentIterationRef)
 			{
 				that.current += points[i].PlanEstimate;
 			
@@ -95,7 +97,7 @@ function Velocity (rallyDataSource, element)
 				that.average += points[i].PlanEstimate;
 			}
 		}
-		that.average = Math.round(that.average/average);
+		that.average = Math.round(that.average/that.numIterations);
 		that.display();
 	}
 
