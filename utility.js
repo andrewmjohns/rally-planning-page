@@ -49,3 +49,9 @@ function updateStatus(statusString, statusColor)
 
 	setTimeout(resetStatus, 2000);
 }
+
+//Sort an array of user stories based on rank
+function sortFunc(a, b)
+{
+	return a.Rank - b.Rank;
+}

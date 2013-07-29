@@ -6,44 +6,44 @@ function Backlog(rallyDataSource, element)
 		
 	rallyDataSource.findAll(
 		[ 
-	 		{
-	        	key: 'stories',
-		        type: 'HierarchicalRequirement',
-		        fetch: 'Name,FormattedID,ObjectID,PlanEstimate,Rank,Iteration,Release,Parent',
-	    	    query: '((ScheduleState != "Accepted") AND (DirectChildrenCount = 0))'
+			{
+				key: 'stories',
+				type: 'HierarchicalRequirement',
+				fetch: 'Name,FormattedID,ObjectID,PlanEstimate,Rank,Iteration,Release,Parent',
+				query: '((ScheduleState != "Accepted") AND (DirectChildrenCount = 0))'
 			}, 
 			{
 				key: 'defects',
-	        	type: 'defects',
-		        fetch: 'Name,FormattedID,ObjectID,PlanEstimate,Rank,Iteration,Release',
-		        query: '(ScheduleState != "Accepted")'
+				type: 'defects',
+				fetch: 'Name,FormattedID,ObjectID,PlanEstimate,Rank,Iteration,Release',
+				query: '(ScheduleState != "Accepted")'
 			},
 			{
-	         	key: 'Iterations',
-	      		type: 'Iteration',
-	         	fetch: 'Name',
-	         	query: '(State != "Accepted")'
+				key: 'Iterations',
+				type: 'Iteration',
+				fetch: 'Name',
+				query: '(State != "Accepted")'
 			},
 			{
-	      		key: 'Releases',
-	          	type: 'Release',
-	         	fetch: 'Name',
-    	     	query: '(State != "Accepted")'
+				key: 'Releases',
+				type: 'Release',
+				fetch: 'Name',
+				query: '(State != "Accepted")'
 			}
 		],
 		function (results) 
 		{
-    		//combine the stories and defects into one list sort them by rank and create an array of story objects
-        	results.stories = results.stories.concat(results.defects);
-	        results.stories.sort(function sortFunc(a, b){return a.Rank - b.Rank});
-	        for(i = 0; i < results.stories.length; i++) 
-	        {
-	        	that.stories[i] = new Story(results.stories[i], results.Iterations, results.Releases);
-	        }
-        	that.display();
-	    }
+			//combine the stories and defects into one list sort them by rank and create an array of story objects
+			results.stories = results.stories.concat(results.defects);
+			results.stories.sort(sortFunc);
+			for(i = 0; i < results.stories.length; i++) 
+			{
+				that.stories[i] = new Story(results.stories[i], results.Iterations, results.Releases);
+			}
+			that.display();
+		}
 	);
-	
+
 	this.display = function () 
 	{        
 		//begin the table
@@ -64,14 +64,13 @@ function Backlog(rallyDataSource, element)
 			
 		var tbody = document.createElement("tbody");
 		table.appendChild(tbody);
-			
-   			tbody.appendChild(this.stories[i].display());
+
 		for(var i = 0; i < this.stories.length; i++)
 		{
+			tbody.appendChild(this.stories[i].display());
         }
 
 		//make all the this.stories of the table draggable and droppable so that they can be reordered
-
 		this.displayElement.appendChild(table);
 		$("#backlog tbody").sortable({helper:'clone',update:this.updateRank}).disableSelection();
 	};

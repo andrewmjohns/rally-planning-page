@@ -15,10 +15,10 @@ rally.addOnLoad(onLoad);
 
 function onLoad() 
 {
-	rallyDataSource = new rally.sdk.data.RallyDataSource('__WORKSPACE_OID__',
-   	                                                     '__PROJECT_OID__',
-       	                                                 '__PROJECT_SCOPING_UP__',
-           	                                             '__PROJECT_SCOPING_DOWN__');
+	rallyDataSource = new rally.sdk.data.RallyDataSource(	'__WORKSPACE_OID__',
+															'__PROJECT_OID__',
+															'__PROJECT_SCOPING_UP__',
+															'__PROJECT_SCOPING_DOWN__');
 	rallyDataSource.setApiVersion(API);
 	
 		var velocity = document.createElement('div');
