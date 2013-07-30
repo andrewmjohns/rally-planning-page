@@ -133,6 +133,13 @@ function Velocity (rallyDataSource, element)
 		velocityTable.appendChild(lastRow);
 		velocityTable.appendChild(currentRow);
 
-		this.displayElement.appendChild(velocityTable);
+		if(this.displayElement.hasChildNodes())
+		{
+			this.displayElement.replaceChild(velocityTable, this.displayElement.firstChild);
+		}
+		else
+		{
+			this.displayElement.appendChild(velocityTable);
+		}
 	};
 }

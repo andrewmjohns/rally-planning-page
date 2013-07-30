@@ -80,3 +80,8 @@ function getStartDate(results)
 				
 	rallyDataSource.create("Iteration", newIteration, onComplete,onError);			
 }
+
+function calculateVelocity()
+{
+	teamVelocity = new Velocity(rallyDataSource, velocity);
+}
