@@ -22,7 +22,7 @@ function Velocity (rallyDataSource, element)
 		type: 'Iteration',
 		fetch: 'Name,EndDate,ObjectID',
 		order: 'EndDate desc',
-		query: '(StartDate < "' + today + '")',
+		query: '(StartDate <= "' + today + '")',
 		pagesize: 4
 	};
 	rallyDataSource.find(queryObject, getStories);
