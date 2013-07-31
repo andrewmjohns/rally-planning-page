@@ -59,12 +59,12 @@ function CreateNewIteration(button)
 	if(IterationName !== '')
 	{
 		rallyDataSource.find(queryObject, getStartDate);
-		document.getElementById('NewIterationName').value = '';
 	}
 }
 
 function getStartDate(results)
 {
+	var IterationName = document.getElementById('NewIterationName').value;
 	var StartDate = new Date(results.Iterations[0].EndDate);
 	var EndDate = new Date(StartDate);
 	var newIteration = {};
@@ -78,7 +78,8 @@ function getStartDate(results)
 	newIteration.EndDate = EndDate.toISOString();
 	newIteration.State = "Planning";
 				
-	rallyDataSource.create("Iteration", newIteration, onComplete,onError);			
+	rallyDataSource.create("Iteration", newIteration, onComplete, onError);
+	document.getElementById('NewIterationName').value = '';
 }
 
 function calculateVelocity()
