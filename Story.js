@@ -66,15 +66,23 @@ function Story(data, iterations, releases)
 								"<option value=''" + (iterationName === "" ? "selected='selected'" : "") + "></option>";
 
         //If the story's iteration is never found then add it to the selection box (it is in a past iteration)
+        var selected = false;
 		for(j=0; j < this.iterations.length; ++j)
 		{
 			iterationHTML += "<option value='" + this.iterations[j]._ref + "' ";
             if(iterationName === this.iterations[j].Name)
             {
 				iterationHTML += "selected='selected'";
+				selected = true;
             }
             iterationHTML += ">" + this.iterations[j].Name + "</option>";
-		} 
+		}
+		console.log(this.model.Iteration);
+		if(this.model.Iteration !== null && !selected)
+		{
+			iterationHTML +=	"<option value='" + this.model.Iteration._ref + "' selected='selected'>" +
+								this.model.Iteration.Name + "</option>";
+		}
 		iterationHTML += "</select>";
 		tds[7].innerHTML = iterationHTML;
 
