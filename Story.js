@@ -44,7 +44,8 @@ function Story(data, iterations, releases)
 		tds[5].innerHTML = (this.model.Parent ? this.model.Parent.Name : "");
 		//Make release a select box
 		var releaseHTML = "<select name='" + this.model._ref +
-							"' onchange='javascript:updateStory(this.name," + '"Release"' + ",this.options[this.selectedIndex].value)'>" +
+							"' onchange='javascript:updateStory(this.name," + '"Release"' + ",this.options[this.selectedIndex].value)' " +
+							"onclick='this.focus()'>" +
 							"<option value=''" + (releaseName === "" ? "selected='selected'" : "") + "></option>";
 
 		for(var j=0; j < this.releases.length; ++j)
@@ -60,7 +61,8 @@ function Story(data, iterations, releases)
 		tds[6].innerHTML = releaseHTML;
 		//Make Iteration a select box
 		var iterationHTML	= "<select name='" + this.model._ref +
-								"' onchange='javascript:updateStory(this.name," + '"Iteration"' + ",this.options[this.selectedIndex].value);calculateVelocity();'>" +
+								"' onchange='javascript:updateStory(this.name," + '"Iteration"' + ",this.options[this.selectedIndex].value); " +
+								"calculateVelocity();' onclick='this.focus()'>" +
 								"<option value=''" + (iterationName === "" ? "selected='selected'" : "") + "></option>";
 
         //If the story's iteration is never found then add it to the selection box (it is in a past iteration)
