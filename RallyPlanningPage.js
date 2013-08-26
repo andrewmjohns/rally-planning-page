@@ -21,25 +21,25 @@ function onLoad()
 															'__PROJECT_SCOPING_DOWN__');
 	rallyDataSource.setApiVersion(API);
 	
-	var velocity = document.createElement('div');
-	velocity.id = 'velocity';
+	var velocityElement = document.createElement('div');
+	velocityElement.id = 'velocity';
 
-	var status = document.createElement('div');
-	status.id = 'status';
+	var statusElement = document.createElement('div');
+	statusElement.id = 'status';
 
-	var create = document.createElement('div');
-	create.id = 'CreateNewIteration';
-	create.innerHTML = '<input type="text" id="NewIterationName"></input><button type="button" onclick="CreateNewIteration(this);">Create New Iteration</button><br/><button type="button" onclick="rally.sdk.util.Navigation.popupCreatePage(\'HierarchicalRequirement\', {})">New Story</button>';
+	var createElement = document.createElement('div');
+	createElement.id = 'CreateNewIteration';
+	createElement.innerHTML = '<input type="text" id="NewIterationName"></input><button type="button" onclick="CreateNewIteration(this);">Create New Iteration</button><br/><button type="button" onclick="rally.sdk.util.Navigation.popupCreatePage(\'HierarchicalRequirement\', {})">New Story</button>';
 
-	var backlog = document.createElement('div');
-	backlog.id = 'backlog';
+	var backlogElement = document.createElement('div');
+	backlogElement.id = 'backlog';
 	
 	var _body = document.getElementsByTagName('body') [0];
 	
-	_body.appendChild(velocity);
-	_body.appendChild(status);
-	_body.appendChild(create);
-	_body.appendChild(backlog);
+	_body.appendChild(velocityElement);
+	_body.appendChild(statusElement);
+	_body.appendChild(createElement);
+	_body.appendChild(backlogElement);
 						
 	teamVelocity = new Velocity(rallyDataSource, velocity);
 	backlog = new Backlog(rallyDataSource, backlog);
