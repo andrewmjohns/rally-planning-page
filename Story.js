@@ -77,7 +77,6 @@ function Story(data, iterations, releases)
             }
             iterationHTML += ">" + this.iterations[j].Name + "</option>";
 		}
-		console.log(this.model.Iteration);
 		if(this.model.Iteration !== null && !selected)
 		{
 			iterationHTML +=	"<option value='" + this.model.Iteration._ref + "' selected='selected'>" +
