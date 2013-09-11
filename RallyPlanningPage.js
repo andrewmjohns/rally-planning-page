@@ -42,7 +42,7 @@ function onLoad()
 	_body.appendChild(backlogElement);
 						
 	teamVelocity = new Velocity(rallyDataSource, velocity);
-	backlog = new Backlog(rallyDataSource, backlog);
+	backlog = new Backlog(rallyDataSource, backlogElement);
 }	
 	
 function CreateNewIteration(button)
