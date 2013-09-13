@@ -1,3 +1,46 @@
+function RallyWebService(onload, onerror)
+{	
+    this.getToken = function()
+    {
+		this.sendRequest('GET', 'security/authorize', this.tokenResponse);
+	};
+		
+	this.sendRequest = function(method, uri, callback, content)
+	{
+		this.xmlhttp.open(method, this.baseUrl + uri, true);
+		this.xmlhttp.withCredentials = true;
+		this.xmlhttp.onload = $.proxy(callback, this);
+    	this.xmlhttp.send(content);
+	};
+
+	this.tokenResponse = function()
+	{
+		try
+		{
+			var response = $.parseJSON(this.xmlhttp.response);
+    		this.securityTokenValid = true;
+    		this.securityToken = response.OperationResult.SecurityToken;
+    	}
+    	catch(err)
+    	{
+    		console.error(err);
+			throw 'Could not parse security token. ' + this.xmlhttp.response;
+		}
+		if(this.onload !== undefined)
+		{ 
+			this.onload(response);
+		}
+	};
+	this.xmlhttp = new XMLHttpRequest();
+	this.baseUrl = 'https://rally1.rallydev.com/slm/webservice/v2.0/';
+	this.onload = onload;
+	this.onerror = onerror;
+	this.securityTokenValid = false;
+	this.securityToken = '';
+	
+	this.getToken();
+}
+
 function wsDelete(objectID, type)
 {
 	var xmlhttp = new XMLHttpRequest();
