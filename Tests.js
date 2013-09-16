@@ -1,13 +1,10 @@
-{
-}
-
 function getTokenTest(assert)
 {
 	var ws = new RallyWebService(testToken);
 	
 	function testToken(response)
 	{
-		assert.ok(ws.securityTokenValid, "Valid Token.");
+		assert.ok(ws.securityToken !== '', "Valid Token.");
 		start();
 	}
 }

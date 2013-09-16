@@ -1,4 +1,4 @@
-function RallyWebService(onload, onerror)
+function RallyWebService(onload)
 {	
     this.getToken = function()
     {
@@ -18,7 +18,6 @@ function RallyWebService(onload, onerror)
 		try
 		{
 			var response = $.parseJSON(this.xmlhttp.response);
-    		this.securityTokenValid = true;
     		this.securityToken = response.OperationResult.SecurityToken;
     	}
     	catch(err)
@@ -34,8 +33,6 @@ function RallyWebService(onload, onerror)
 	this.xmlhttp = new XMLHttpRequest();
 	this.baseUrl = 'https://rally1.rallydev.com/slm/webservice/v2.0/';
 	this.onload = onload;
-	this.onerror = onerror;
-	this.securityTokenValid = false;
 	this.securityToken = '';
 	
 	this.getToken();
