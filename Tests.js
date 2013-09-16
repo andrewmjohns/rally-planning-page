@@ -1,12 +1,12 @@
-function getTokenTest(assert)
+function initializeKeyTest(assert)
 {
-	var ws = new RallyWebService(testToken);
+	var ws = new RallyWebService(testKey);
 	
-	function testToken(response)
+	function testKey(response)
 	{
-		assert.ok(ws.securityToken !== '', "Valid Token.");
+		assert.ok(ws.securityKey !== '', "Valid key.");
 		start();
 	}
 }
 
-asyncTest( 'Get Token Test', 1, getTokenTest);
+asyncTest( 'Initialize key test', 1, initializeKeyTest);

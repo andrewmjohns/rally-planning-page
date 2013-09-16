@@ -1,10 +1,5 @@
 function RallyWebService(onload)
 {	
-    this.getToken = function()
-    {
-		this.sendRequest('GET', 'security/authorize', this.tokenResponse);
-	};
-		
 	this.sendRequest = function(method, uri, callback, content)
 	{
 		this.xmlhttp.open(method, this.baseUrl + uri, true);
@@ -13,17 +8,17 @@ function RallyWebService(onload)
     	this.xmlhttp.send(content);
 	};
 
-	this.tokenResponse = function()
+	this.keyResponse = function()
 	{
 		try
 		{
 			var response = $.parseJSON(this.xmlhttp.response);
-    		this.securityToken = response.OperationResult.SecurityToken;
+    		this.securityKey = response.OperationResult.SecurityToken;
     	}
     	catch(err)
     	{
     		console.error(err);
-			throw 'Could not parse security token. ' + this.xmlhttp.response;
+			throw 'Could not parse security key. ' + this.xmlhttp.response;
 		}
 		if(this.onload !== undefined)
 		{ 
@@ -33,9 +28,9 @@ function RallyWebService(onload)
 	this.xmlhttp = new XMLHttpRequest();
 	this.baseUrl = 'https://rally1.rallydev.com/slm/webservice/v2.0/';
 	this.onload = onload;
-	this.securityToken = '';
+	this.securityKey = '';
 	
-	this.getToken();
+	this.sendRequest('GET', 'security/authorize', this.keyResponse);
 }
 
 function wsDelete(objectID, type)
